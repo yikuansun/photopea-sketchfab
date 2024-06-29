@@ -30,6 +30,9 @@
                 api.start();
                 api.addEventListener("viewerready", function() {
                     console.log("viewer is ready");
+                    /*api.setBackground({
+                        color: [0, 96, 0],
+                    });*/
                 });
             },
             error: () => {
