@@ -5,9 +5,18 @@
     let uid = "7w7pAfrCfjovwykkEeRFLGw5SXS";
     let screenshotSrc = "";
     let api;
+    let models = [];
+    let categories = [];
+    let client;
 
-    onMount(() => {
-        let client = new Sketchfab(viewerFrame);
+    async function getModels() {
+        let response = await fetch("https://api.sketchfab.com/v3/models?sort_by=viewCount&staffpicked=true&animated=false&has_sound=false&archives_flavours=false");
+        let json = await response.json();
+        models = json["results"];
+    }
+
+    function resetClient() {
+        client = new Sketchfab(viewerFrame);
         client.init(uid, {
             success: (api_) => {
                 api = api_;
@@ -21,6 +30,12 @@
             },
             transparent: 1, // requires pro acc
         });
+    }
+
+    onMount(() => {
+        resetClient();
+
+        getModels();
     });
 </script>
 
@@ -39,6 +54,18 @@
 <br />
 
 <img src={screenshotSrc} alt="screenshot" />
+<br />
+
+{#each models as m}
+    <img src={m["thumbnails"]["images"][0]["url"]}
+        alt={m["name"]}
+        title={m["name"]}
+        width={200}
+        on:click={() => {
+            uid = m["uid"];
+            resetClient();
+        }} />
+{/each}
 
 <style>
     #viewerFrame {
