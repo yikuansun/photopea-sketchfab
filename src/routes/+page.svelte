@@ -7,12 +7,19 @@
     let api;
     let models = [];
     let categories = [];
+    let selectedCat = "animals-pets";
     let client;
 
     async function getModels() {
-        let response = await fetch("https://api.sketchfab.com/v3/models?sort_by=viewCount&staffpicked=true&animated=false&has_sound=false&archives_flavours=false");
+        let response = await fetch(`https://api.sketchfab.com/v3/models?sort_by=-viewCount&categories=${selectedCat}&staffpicked=true&animated=false&has_sound=false&archives_flavours=false`);
         let json = await response.json();
         models = json["results"];
+    }
+
+    async function getCategories() {
+        let response = await fetch("https://api.sketchfab.com/v3/categories?sort_by=slug");
+        let json = await response.json();
+        categories = json["results"];
     }
 
     function resetClient() {
@@ -36,6 +43,7 @@
         resetClient();
 
         getModels();
+        getCategories();
     });
 </script>
 
@@ -56,6 +64,15 @@
 <img src={screenshotSrc} alt="screenshot" />
 <br />
 
+{#each categories as cat}
+    <button on:click={() => {
+        selectedCat = cat["slug"];
+        getModels();
+    }}>
+        {cat["name"]}
+    </button>
+{/each}
+<br />
 {#each models as m}
     <img src={m["thumbnails"]["images"][0]["url"]}
         alt={m["name"]}
