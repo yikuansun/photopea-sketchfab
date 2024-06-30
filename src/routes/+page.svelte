@@ -91,37 +91,29 @@
     });
 </script>
 
-<button on:click={() => { modelGalleryVisible = true; }}>Show gallery</button>
-<br /> <br />
+<div id="centered">
+    <button on:click={() => { modelGalleryVisible = true; }}>Show gallery</button>
+    <br /> <br />
 
-<iframe src="" bind:this={viewerFrame} id="viewerFrame" allow="autoplay; fullscreen; xr-spatial-tracking" xr-spatial-tracking execution-while-out-of-viewport execution-while-not-rendered web-share allowfullscreen mozallowfullscreen="true" webkitallowfullscreen="true" title="sketchfab embed"></iframe>
+    <iframe src="" bind:this={viewerFrame} id="viewerFrame" allow="autoplay; fullscreen; xr-spatial-tracking" xr-spatial-tracking execution-while-out-of-viewport execution-while-not-rendered web-share allowfullscreen mozallowfullscreen="true" webkitallowfullscreen="true" title="sketchfab embed"></iframe>
 
-<br />
-<button on:click={() => {
-    api.getScreenShot(2048, 2048, "image/png", (err, result) => {
-        if (!err) {
-            screenshotSrc = result;
-        }
-    });
-}}>
-    Take screenshot
-</button>
-<br />
-<button on:click={() => {
-    api.getScreenShot(2048, 2048, "image/png", (err, result) => {
-        Photopea.runScript(window.parent, `app.open("${result}", null, true);`);
-    });
-}}>
-    Add to Document
-</button>
-<br />
+    <br />
+    <br />
+    <button on:click={() => {
+        api.getScreenShot(2048, 2048, "image/png", (err, result) => {
+            Photopea.runScript(window.parent, `app.open("${result}", null, true);`);
+        });
+    }}>
+        Add to Document
+    </button>
+    <br />
+</div>
 
-<img src={screenshotSrc} alt="screenshot" width={500} />
 {#if modelGalleryVisible}
     <div id="modelGallery" transition:fly={{ y: "100vh", opacity: 1, }}>
         <button on:click={() => { modelGalleryVisible = false; }}>Hide gallery</button>
         <br /> <br />
-        <input bind:value={searchQuery} on:change={getModelsBySearch} placeholder="Search for a model" />
+        <input bind:value={searchQuery} on:change={getModelsBySearch} placeholder="Search for a model" id="searchBar" />
         <br />
         {#each categories as cat}
             <button on:click={() => {
@@ -133,15 +125,14 @@
         {/each}
         <br />
         {#each models as m}
-            <img src={getSharpestThumbnail(m)}
-                alt={m["name"]}
+            <div class="imageThumbnail"
+                style:background-image="url('{getSharpestThumbnail(m)}')"
                 title={m["name"]}
-                width={200}
                 on:click={() => {
                     uid = m["uid"];
                     resetClient();
                     modelGalleryVisible = false;
-                }} />
+                }}></div>
         {/each}
         <br />
         <button on:click={addMoreModels}>
@@ -155,6 +146,7 @@
         width: 500px;
         height: 500px;
         border: 0;
+        border-radius: 20px;
     }
 
     #modelGallery {
@@ -165,10 +157,45 @@
         top: 0;
         left: 0;
         box-sizing: border-box;
+        padding: 16px;
         overflow-y: scroll;
     }
 
     :global(body) {
         overflow-x: hidden;
+    }
+
+    #centered {
+        position: fixed;
+        top: 50vh;
+        left: 50vw;
+        transform: translate(-50%, -50%);
+        text-align: center;
+    }
+
+    button {
+        padding: 5px 8px;
+    }
+
+    .imageThumbnail {
+        background-size: cover;
+        aspect-ratio: 200 / 112.5;
+        width: calc(25% - 16px);
+        display: inline-block;
+        margin: 8px;
+        border-radius: 10px;
+        cursor: pointer;
+    }
+
+    #searchBar {
+        width: 100%;
+        box-sizing: border-box;
+        padding: 12px;
+        background-color: #222222;
+        color: aliceblue;
+        border-radius: 8px;
+        border: 1px solid grey;
+        outline: none!important;
+        font-size: 16px;
     }
 </style>
