@@ -153,7 +153,7 @@
     #modelGallery {
         width: 100vw;
         height: 100vh;
-        background-color: white;
+        background-color: #353535;
         position: fixed;
         top: 0;
         left: 0;
@@ -175,7 +175,19 @@
     }
 
     button {
-        padding: 5px 8px;
+        padding: 8px 14px;
+        background-color: #1caad9;
+        border: 0;
+        font-weight: bold;
+        color: white;
+        margin: 1px;
+        border-radius: 5px;
+        transition: background-color 0.3s;
+    }
+
+    button:hover {
+        background-color: #1c88bb;
+        cursor: pointer;
     }
 
     .imageThumbnail {
