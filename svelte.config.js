@@ -5,7 +5,7 @@ const config = {
 	kit: {
 		adapter: adapter({
 			pages: "docs", // GitHub pages uses from docs as base directory
-			fallback: "404.html",
+			fallback: "index.html",
 		})
 	}
 };
