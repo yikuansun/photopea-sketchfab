@@ -11,7 +11,7 @@
     let categories = [];
     let selectedCat = "animals-pets";
     let client;
-    let nextPageEndpoint = new URL("https://api.sketchfab.com/v3/models");
+    let nextPageEndpoint = "https://api.sketchfab.com/v3/models";
     let searchQuery = "";
     let modelGalleryVisible = false;
 
@@ -26,7 +26,7 @@
         let response = await fetch(endpoint);
         let json = await response.json();
         models = json["results"];
-        nextPageEndpoint = new URL(json["next"]);
+        nextPageEndpoint = json["next"];
     }
 
     async function getModelsBySearch() {
@@ -48,7 +48,7 @@
         let response = await fetch(nextPageEndpoint);
         let json = await response.json();
         models = [...models, ...json["results"]];
-        nextPageEndpoint = new URL(json["next"]);
+        nextPageEndpoint = json["next"];
     }
 
     async function getCategories() {
@@ -152,9 +152,9 @@
                 }}></div>
         {/each}
         <br />
-        <button on:click={addMoreModels}>
-            More
-        </button>
+        {#if nextPageEndpoint}
+            <button on:click={addMoreModels}>More</button>
+        {/if}
     </div>
 {/if}
 
