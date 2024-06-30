@@ -1,6 +1,7 @@
 <script>
     import { onMount } from "svelte";
     import Photopea from "$lib/photopea.js";
+    import { fly } from "svelte/transition";
 
     let viewerFrame;
     let uid = "7w7pAfrCfjovwykkEeRFLGw5SXS";
@@ -117,7 +118,7 @@
 
 <img src={screenshotSrc} alt="screenshot" width={500} />
 {#if modelGalleryVisible}
-    <div id="modelGallery">
+    <div id="modelGallery" transition:fly={{ y: "100vh", opacity: 1, }}>
         <button on:click={() => { modelGalleryVisible = false; }}>Hide gallery</button>
         <br /> <br />
         <input bind:value={searchQuery} on:change={getModelsBySearch} placeholder="Search for a model" />
