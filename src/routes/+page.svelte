@@ -144,7 +144,8 @@
 <style>
     #viewerFrame {
         width: 500px;
-        height: 500px;
+        aspect-ratio: 1 / 1;
+        max-width: calc(100vw - 40px);
         border: 0;
         border-radius: 20px;
     }
@@ -180,7 +181,7 @@
     .imageThumbnail {
         background-size: cover;
         aspect-ratio: 200 / 112.5;
-        width: calc(25% - 16px);
+        width: calc(50% - 16px);
         display: inline-block;
         margin: 8px;
         border-radius: 10px;
