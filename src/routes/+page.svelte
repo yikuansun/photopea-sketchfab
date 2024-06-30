@@ -105,7 +105,7 @@
         api.getScreenShot(2048, 2048, "image/png", (err, result) => {
             Photopea.runScript(window.parent, `app.open("${result}", null, true);`);
         });
-    }}>
+    }} class="pink">
         Add to Document
     </button>
     <br />
@@ -244,5 +244,13 @@
         .imageThumbnail {
             width: calc(25% - 16px);
         }
+    }
+
+    .pink {
+        background-color: #df1660;
+    }
+
+    .pink:hover {
+        background-color: #c81859;
     }
 </style>
