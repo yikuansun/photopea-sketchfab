@@ -109,6 +109,23 @@
     <br />
 </div>
 
+<div style:position="fixed"
+    style:bottom="10px"
+    style:left="50vw"
+    style:transform="translate(-50%, -50%)"
+    style:text-align="center"
+    style:background-color="#353535"
+    style:color="white"
+    style:padding="5px"
+    style:font-size="10px"
+    style:font-family="Arial, sans-serif">
+    Models courtesy of <a style:color="white" target="_blank" href="https://sketchfab.com/">Sketchfab</a>
+    <br />
+    <a style:color="white" target="_blank" href="https://github.com/yikuansun/photopea-sketchfab/issues">Report a bug</a>
+    <br />
+    <a style:color="white" target="_blank" href="https://github.com/yikuansun/photopea-sketchfab">Contribute on GitHub</a>
+</div>
+
 {#if modelGalleryVisible}
     <div id="modelGallery" transition:fly={{ y: "100vh", opacity: 1, }}>
         <button on:click={() => { modelGalleryVisible = false; }}>Hide gallery</button>
