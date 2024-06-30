@@ -199,4 +199,16 @@
         outline: none!important;
         font-size: 16px;
     }
+
+    @media screen and (min-width: 600px) {
+        .imageThumbnail {
+            width: calc((100% / 3) - 16px);
+        }
+    }
+
+    @media screen and (min-width: 800px) {
+        .imageThumbnail {
+            width: calc(25% - 16px);
+        }
+    }
 </style>
