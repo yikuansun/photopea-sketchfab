@@ -112,14 +112,14 @@
 </div>
 
 <div style:position="fixed"
-    style:bottom="10px"
+    style:bottom="-20px"
     style:left="50vw"
     style:transform="translate(-50%, -50%)"
     style:text-align="center"
     style:background-color="#353535"
     style:color="white"
     style:padding="5px"
-    style:font-size="10px"
+    style:font-size="8px"
     style:font-family="Arial, sans-serif">
     Models courtesy of <a style:color="white" target="_blank" href="https://sketchfab.com/">Sketchfab</a>
     <br />
@@ -138,7 +138,9 @@
             <button on:click={() => {
                 selectedCat = cat["slug"];
                 getModels();
-            }}>
+            }}
+            style:padding="4px 8px"
+            style:font-size="10px">
                 {cat["name"]}
             </button>
         {/each}
@@ -223,13 +225,13 @@
     #searchBar {
         width: 100%;
         box-sizing: border-box;
-        padding: 12px;
+        padding: 8px;
         background-color: #222222;
         color: aliceblue;
         border-radius: 8px;
         border: 1px solid grey;
         outline: none!important;
-        font-size: 16px;
+        font-size: 12px;
     }
 
     @media screen and (min-width: 600px) {
