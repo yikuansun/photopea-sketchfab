@@ -9,11 +9,27 @@
     let categories = [];
     let selectedCat = "animals-pets";
     let client;
+    let nextPageEndpoint = new URL("https://api.sketchfab.com/v3/models");
 
     async function getModels() {
-        let response = await fetch(`https://api.sketchfab.com/v3/models?sort_by=-viewCount&categories=${selectedCat}&staffpicked=true&animated=false&has_sound=false&archives_flavours=false`);
+        let endpoint = new URL("https://api.sketchfab.com/v3/models");
+        endpoint.searchParams.set("sort_by", "-viewCount");
+        endpoint.searchParams.set("categories", selectedCat);
+        endpoint.searchParams.set("staffpicked", true);
+        endpoint.searchParams.set("animated", false);
+        endpoint.searchParams.set("has_sound", false);
+        endpoint.searchParams.set("archives_flavours", false);
+        let response = await fetch(endpoint);
         let json = await response.json();
         models = json["results"];
+        nextPageEndpoint = new URL(json["next"]);
+    }
+
+    async function addMoreModels() {
+        let response = await fetch(nextPageEndpoint);
+        let json = await response.json();
+        models = [...models, ...json["results"]];
+        nextPageEndpoint = new URL(json["next"]);
     }
 
     async function getCategories() {
@@ -86,6 +102,10 @@
             resetClient();
         }} />
 {/each}
+<br />
+<button on:click={addMoreModels}>
+    More
+</button>
 
 <style>
     #viewerFrame {
