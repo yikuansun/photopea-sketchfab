@@ -1,7 +1,7 @@
 <script>
     import { onMount } from "svelte";
     import Photopea from "$lib/photopea.js";
-    import { fly } from "svelte/transition";
+    import { fly, slide } from "svelte/transition";
 
     let viewerFrame;
     let uid = "7w7pAfrCfjovwykkEeRFLGw5SXS";
@@ -16,6 +16,7 @@
     let modelGalleryVisible = false;
 
     async function getModels() {
+        models = [];
         let endpoint = new URL("https://api.sketchfab.com/v3/models");
         endpoint.searchParams.set("sort_by", "-viewCount");
         endpoint.searchParams.set("categories", selectedCat);
@@ -30,6 +31,7 @@
     }
 
     async function getModelsBySearch() {
+        models = [];
         let endpoint = new URL("https://api.sketchfab.com/v3/search");
         endpoint.searchParams.set("type", "models");
         endpoint.searchParams.set("sort_by", "-viewCount");
@@ -149,7 +151,8 @@
                     uid = m["uid"];
                     resetClient();
                     modelGalleryVisible = false;
-                }}></div>
+                }}
+                transition:slide></div>
         {/each}
         <br />
         {#if nextPageEndpoint}
