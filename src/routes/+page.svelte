@@ -96,7 +96,7 @@
 
 <br />
 <button on:click={() => {
-    api.getScreenShot("image/png", (err, result) => {
+    api.getScreenShot(2048, 2048, "image/png", (err, result) => {
         if (!err) {
             screenshotSrc = result;
         }
@@ -106,14 +106,12 @@
 </button>
 <br />
 
-<img src={screenshotSrc} alt="screenshot" />
+<img src={screenshotSrc} alt="screenshot" width={500} />
 {#if modelGalleryVisible}
     <div id="modelGallery">
         <button on:click={() => { modelGalleryVisible = false; }}>Hide gallery</button>
         <br /> <br />
-        <input bind:value={searchQuery} on:keydown={(e) => {
-            if (e.key == "Enter") getModelsBySearch();
-        }} placeholder="Search for a model" />
+        <input bind:value={searchQuery} on:change={getModelsBySearch} placeholder="Search for a model" />
         <br />
         {#each categories as cat}
             <button on:click={() => {
