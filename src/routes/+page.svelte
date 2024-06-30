@@ -1,5 +1,6 @@
 <script>
     import { onMount } from "svelte";
+    import Photopea from "$lib/photopea.js";
 
     let viewerFrame;
     let uid = "7w7pAfrCfjovwykkEeRFLGw5SXS";
@@ -103,6 +104,14 @@
     });
 }}>
     Take screenshot
+</button>
+<br />
+<button on:click={() => {
+    api.getScreenShot(2048, 2048, "image/png", (err, result) => {
+        Photopea.runScript(window.parent, `app.open("${result}", null, true);`);
+    });
+}}>
+    Add to Document
 </button>
 <br />
 
