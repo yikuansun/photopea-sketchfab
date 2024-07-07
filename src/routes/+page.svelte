@@ -111,7 +111,7 @@
     <br />
 </div>
 
-<div style:position="fixed"
+<!--<div style:position="fixed"
     style:bottom="-20px"
     style:left="50vw"
     style:transform="translate(-50%, -50%)"
@@ -126,7 +126,7 @@
     <a style:color="white" target="_blank" href="https://github.com/yikuansun/photopea-sketchfab/issues">Report a bug</a>
     <br />
     <a style:color="white" target="_blank" href="https://github.com/yikuansun/photopea-sketchfab">Contribute on GitHub</a>
-</div>
+</div>-->
 
 {#if modelGalleryVisible}
     <div id="modelGallery" transition:fly={{ y: "100vh", opacity: 1, }}>
