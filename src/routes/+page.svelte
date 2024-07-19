@@ -1,6 +1,6 @@
 <script>
     import { onMount } from "svelte";
-    import Photopea from "$lib/photopea.js";
+    import Photopea from "photopea";
     import { fly, slide } from "svelte/transition";
 
     let viewerFrame;
@@ -14,6 +14,7 @@
     let nextPageEndpoint = "https://api.sketchfab.com/v3/models";
     let searchQuery = "";
     let modelGalleryVisible = false;
+    let pea;
 
     async function getModels() {
         models = [];
@@ -90,6 +91,8 @@
 
         getModels();
         getCategories();
+
+        pea = new Photopea(window.parent);
     });
 </script>
 
@@ -103,7 +106,7 @@
     <br />
     <button on:click={() => {
         api.getScreenShot(2048, 2048, "image/png", (err, result) => {
-            Photopea.runScript(window.parent, `app.open("${result}", null, true);`);
+            pea.openFromURL(result, true);
         });
     }} class="pink">
         Add to Document
