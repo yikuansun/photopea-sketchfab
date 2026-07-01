@@ -4,7 +4,7 @@ import adapter from '@sveltejs/adapter-static';
 const config = {
     kit: {
         adapter: adapter({
-            pages: "docs", // GitHub pages uses from docs as base directory
+            pages: "build",
             fallback: "index.html",
         }),
         paths: {
