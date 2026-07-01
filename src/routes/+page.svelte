@@ -87,6 +87,8 @@
     }
 
     onMount(() => {
+        uid = localStorage.getItem("uid") || "7w7pAfrCfjovwykkEeRFLGw5SXS";
+
         resetClient();
 
         getModels();
@@ -150,6 +152,7 @@
                 title={m["name"]}
                 on:click={() => {
                     uid = m["uid"];
+                    localStorage.setItem("uid", uid);
                     resetClient();
                     modelGalleryVisible = false;
                 }}
