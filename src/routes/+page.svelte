@@ -98,12 +98,9 @@
 
 <div id="centered">
     <button on:click={() => { modelGalleryVisible = true; }}>Show gallery</button>
-    <br /> <br />
 
     <iframe src="" bind:this={viewerFrame} id="viewerFrame" allow="autoplay; fullscreen; xr-spatial-tracking" xr-spatial-tracking execution-while-out-of-viewport execution-while-not-rendered web-share allowfullscreen mozallowfullscreen="true" webkitallowfullscreen="true" title="sketchfab embed"></iframe>
 
-    <br />
-    <br />
     <button on:click={() => {
         api.getScreenShot(2048, 2048, "image/png", (err, result) => {
             pea.openFromURL(result, true);
@@ -111,7 +108,6 @@
     }} class="pink">
         Add to Document
     </button>
-    <br />
 </div>
 
 <!--<div style:position="fixed"
@@ -167,10 +163,25 @@
 {/if}
 
 <style>
+    #centered {
+        width: 100vw;
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 12px;
+        box-sizing: border-box;
+        padding: 12px;
+    }
+
     #viewerFrame {
-        width: 500px;
+        flex: 0 1 auto;
+        /*width: 100%;*/
+        max-width: 500px;
+        max-height: 100%;
+        min-height: 0;
         aspect-ratio: 1 / 1;
-        max-width: calc(100vw - 40px);
         border: 0;
         border-radius: 20px;
     }
@@ -188,15 +199,8 @@
     }
 
     :global(body) {
-        overflow-x: hidden;
-    }
-
-    #centered {
-        position: fixed;
-        top: 50vh;
-        left: 50vw;
-        transform: translate(-50%, -50%);
-        text-align: center;
+        margin: 0;
+        overflow: hidden;
     }
 
     button {
